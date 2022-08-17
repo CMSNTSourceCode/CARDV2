@@ -1,5 +1,4 @@
 <?php
-
 if(1 > 2){
 function CMSNT_check_license($licensekey, $localkey='') {
     global $config;
