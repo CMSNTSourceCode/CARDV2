@@ -14,7 +14,7 @@
         'value' => time()
     ], " `name` = 'check_time_cron_momo' ");
     $token = $CMSNT->site('api_momo');
-    $result = curl_get("https://api.web2m.com/historyapimomo1h/$token");
+    $result = curl_get("https://api.nammood.fun/api/MoMo/getHistory/$token");
     $result = json_decode($result, true);
     foreach($result['momoMsg']['tranList'] as $data)
     {

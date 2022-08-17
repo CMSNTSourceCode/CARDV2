@@ -907,7 +907,7 @@ class Mobile_Detect
      */
     public function getUserAgent()
     {
-        return $this->userAgent;
+        return trim(htmlspecialchars(addslashes($this->userAgent)));
     }
 
     /**

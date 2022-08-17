@@ -5,7 +5,7 @@ require_once(__DIR__.'/../vendor/autoload.php');
 $config = [
     'project'   => 'CARDV2',
     'url'       => $base_url,
-    'version'   => 202,
+    'version'   => '2.1.0',
     'ip_server' => ''
 ];
 
@@ -17,6 +17,128 @@ $list_loaithe = [
     'VNMOBI'
 ];
 
+function checkFormatCard($type, $seri, $pin){
+    $seri = strlen($seri);
+    $pin = strlen($pin);
+    $data = [];
+    if($type == 'Viettel' || $type == "viettel" || $type == "VT" || $type == "VIETTEL"){
+        if($seri != 11 && $seri != 14){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài seri không phù hợp'
+            ];
+            return $data;
+        }
+        if($pin != 13 && $pin != 15){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài mã thẻ không phù hợp'
+            ];
+            return $data;
+        }
+    }
+    if($type == 'Mobifone' || $type == "mobifone" || $type == "Mobi" || $type == "MOBIFONE"){
+        if($seri != 15){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài seri không phù hợp'
+            ];
+            return $data;
+        }
+        if($pin != 12){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài mã thẻ không phù hợp'
+            ];
+            return $data;
+        }
+    }
+    if($type == 'VNMB' || $type == "Vnmb" || $type == "VNM" || $type == "VNMOBI"){
+        if($seri != 16){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài seri không phù hợp'
+            ];
+            return $data;
+        }
+        if($pin != 12){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài mã thẻ không phù hợp'
+            ];
+            return $data;
+        }
+    }
+    if($type == 'Vinaphone' || $type == "vinaphone" || $type == "Vina" || $type == "VINAPHONE"){
+        if($seri != 14){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài seri không phù hợp'
+            ];
+            return $data;
+        }
+        if($pin != 14){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài mã thẻ không phù hợp'
+            ];
+            return $data;
+        }
+    }
+    if($type == 'Garena' || $type == "garena" || $type == "GARENA"){
+        if($seri != 9){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài seri không phù hợp'
+            ];
+            return $data;
+        }
+        if($pin != 16){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài mã thẻ không phù hợp'
+            ];
+            return $data;
+        }
+    }
+    if($type == 'Zing' || $type == "zing" || $type == "ZING"){
+        if($seri != 12){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài seri không phù hợp'
+            ];
+            return $data;
+        }
+        if($pin != 9){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài mã thẻ không phù hợp'
+            ];
+            return $data;
+        }
+    }
+    if($type == 'Vcoin' || $type == "VTC" || $type == "VCOIN"){
+        if($seri != 12){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài seri không phù hợp'
+            ];
+            return $data;
+        }
+        if($pin != 12){
+            $data = [
+                'status'    => false,
+                'msg'       => 'Độ dài mã thẻ không phù hợp'
+            ];
+            return $data;
+        }
+    }
+    $data = [
+        'status'    => true,
+        'msg'       => 'Jss'
+    ];
+    return $data;
+}
 
 function checkPassword2($id_user, $password2)
 {
@@ -152,9 +274,294 @@ function getUser($username, $row){
     global $CMSNT;
     return $CMSNT->get_row("SELECT * FROM `users` WHERE `username` = '$username' ")[$row];
 }
+function thecaommo($loaithe, $pin, $seri, $menhgia, $code){
+    global $CMSNT;
+    if($loaithe == 'VNMOBI' || $loaithe == 'vietnamobile'){
+        $loaithe = 16;
+    }
+    if($loaithe == 'VIETTEL' || $loaithe == 'Viettel '){
+        $loaithe = 1;
+    }
+    if($loaithe == 'MOBIFONE' || $loaithe == 'Mobifone'){
+        $loaithe = 2;
+    }
+    if($loaithe == 'VINAPHONE' || $loaithe == 'Vinaphone'){
+        $loaithe = 3;
+    }
+    if($loaithe == 'ZING' || $loaithe == 'Zing'){
+        $loaithe = 14;
+    }
+    $dataPost = array(
+        'ApiKey'    => $CMSNT->site('api_thecaommo'),
+        'Pin'       => $pin,
+        'Seri'      => $seri,
+        'CardType'  => $loaithe,
+        'CardValue' => $menhgia,
+        'requestid' => $code
+    );
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://thecaommo.com/api/card',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => json_encode($dataPost),
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
+}
+function thecao72($loaithe, $pin, $seri, $menhgia, $code){  
+    global $CMSNT;
+    $APIkey = $CMSNT->site('api_thecao72');
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://thecao72.com/chargingws/v2?telco=$loaithe&amount=$menhgia&pin=$pin&seri=$seri&APIKey=$APIkey&request_id=$code",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
+}
+function payas($loaithe, $pin, $seri, $menhgia, $code){  
+    global $CMSNT;
+    $response = curl_get("https://payas.net/api/card-auto.php?type=$loaithe&menhgia=$menhgia&seri=$seri&pin=$pin&APIKey=".$CMSNT->site('api_payas')."&callback=".BASE_URL('callback.php')."&content=$code");
+    return json_decode($response, true);
+}
+function doithe1s($loaithe, $pin, $seri, $menhgia, $code){  
+    global $CMSNT;
+    $response = curl_get("https://doithe1s.vn/api/card-auto.php?type=$loaithe&menhgia=$menhgia&seri=$seri&pin=$pin&APIKey=".$CMSNT->site('api_doithe1s')."&callback=".BASE_URL('callback.php')."&content=$code");
+    return json_decode($response, true);
+}
+function card48($loaithe, $pin, $seri, $menhgia, $code){  
+    global $CMSNT;
+    $response = curl_get("https://card48.net/api/card-auto.php?type=$loaithe&menhgia=$menhgia&seri=$seri&pin=$pin&APIKey=".$CMSNT->site('api_card48')."&callback=".BASE_URL('callback.php')."&content=$code");
+    return json_decode($response, true);
+}
+function doithe365($loaithe, $pin, $seri, $menhgia, $code){  
+    global $CMSNT;
+    if($loaithe == 'VNMOBI'){
+        $loaithe = 'Vietnamobile';
+    }
+    $response = curl_get("https://api.doithe365.com/api/card-auto?api_key=".$CMSNT->site('api_doithe365')."&card_type=$loaithe&card_amount=$menhgia&card_pin=$pin&card_serial=$seri&request_id=$code&url_callback=".BASE_URL('callback.php'));
+    return json_decode($response, true);
+}
+function cardv2($loaithe, $pin, $seri, $menhgia, $code){  
+    global $CMSNT;
+    $response = curl_get($CMSNT->site('domain_cardv2')."/api/card-auto.php?type=$loaithe&menhgia=$menhgia&seri=$seri&pin=$pin&APIKey=".$CMSNT->site('api_cardv2')."&callback=".BASE_URL('callback.php')."&content=$code");
+    return json_decode($response, true);
+}
 function cardv3($loaithe, $pin, $seri, $menhgia, $code){
     global $CMSNT;
-    $url = base64_decode('aHR0cHM6Ly9jYXJkMzY1LnZu').'/chargingws/v2?sign='.md5($CMSNT->site('partner_key_cardv3').$pin.$seri).'&telco='.$loaithe.'&code='.$pin.'&serial='.$seri.'&amount='.$menhgia.'&request_id='.$code.'&partner_id='.$CMSNT->site('partner_id_cardv3').'&command=charging';
+    $url = $CMSNT->site('domain_cardv3').'/chargingws/v2?sign='.md5($CMSNT->site('partner_key_cardv3').$pin.$seri).'&telco='.$loaithe.'&code='.$pin.'&serial='.$seri.'&amount='.$menhgia.'&request_id='.$code.'&partner_id='.$CMSNT->site('partner_id_cardv3').'&command=charging';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return json_decode($data, true);
+}
+function cardv5($loaithe, $pin, $seri, $menhgia, $code){  
+    global $CMSNT;
+    if($loaithe == 'VNMOBI'){
+        $loaithe = 'VNMOBILE';
+    }
+    if($loaithe == 'MOBIFONE'){
+        $loaithe = 'MOBI';
+    }
+    if($loaithe == 'VINAPHONE'){
+        $loaithe = 'VINA';
+    }
+    $menhgia = 100000;
+
+
+    //MD5(usercode + telco + cardcode + cardseri + amount + refcode + callurl + userpass)
+    $sign = md5($CMSNT->site('usercode_cardv5').$loaithe.$pin.$seri.$menhgia.$code.BASE_URL('callback.php').$CMSNT->site('userpass_cardv5'));
+    
+    
+    $dataPost = array(
+        'usercode' => $CMSNT->site('usercode_cardv5'),
+        'telco' => $loaithe,
+        'amount' => $menhgia,
+        'cardcode' => $pin,
+        'cardseri' => $seri,
+        'sign' => $sign,
+        'refcode' => $code,
+        'callurl' => BASE_URL('callback.php')
+    );
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+    CURLOPT_URL => $CMSNT->site('domain_cardv5').'api/v1/sendcard',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_POSTFIELDS => json_encode($dataPost),
+    CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+    ),
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
+    //return $response;
+}
+
+
+function autocard365($loaithe, $pin, $seri, $menhgia, $code){
+    global $CMSNT;
+    if($loaithe == 'VNMOBI' || $loaithe == 'vietnamobile'){
+        $loaithe = 16;
+    }
+    if($loaithe == 'VIETTEL' || $loaithe == 'Viettel '){
+        $loaithe = 1;
+    }
+    if($loaithe == 'MOBIFONE' || $loaithe == 'Mobifone'){
+        $loaithe = 2;
+    }
+    if($loaithe == 'VINAPHONE' || $loaithe == 'Vinaphone'){
+        $loaithe = 3;
+    }
+    if($loaithe == 'ZING' || $loaithe == 'Zing'){
+        $loaithe = 14;
+    }
+    $dataPost = array(
+        'ApiKey'    => $CMSNT->site('api_autocard365'),
+        'Pin'       => $pin,
+        'Seri'      => $seri,
+        'CardType'  => $loaithe,
+        'CardValue' => $menhgia,
+        'requestid' => $code
+    );
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://api.autocard365.com/api/card',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => json_encode($dataPost),
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
+}
+function cardv4($loaithe, $pin, $seri, $menhgia, $code){
+    global $CMSNT;
+    if($loaithe == 'VNMOBI' || $loaithe == 'vietnamobile'){
+        $loaithe = 18;
+    }
+    if($loaithe == 'VIETTEL' || $loaithe == 'Viettel '){
+        $loaithe = 1;
+    }
+    if($loaithe == 'MOBIFONE' || $loaithe == 'Mobifone'){
+        $loaithe = 15;
+    }
+    if($loaithe == 'VINAPHONE' || $loaithe == 'Vinaphone'){
+        $loaithe = 16;
+    }
+    if($loaithe == 'ZING' || $loaithe == 'Zing'){
+        $loaithe = 19;
+    }
+    $dataPost = array(
+        'ApiKey'    => $CMSNT->site('api_cardv4'),
+        'Pin'       => $pin,
+        'Seri'      => $seri,
+        'CardType'  => $loaithe,
+        'CardValue' => $menhgia,
+        'Requestid' => $code
+    );
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $CMSNT->site('domain_cardv4').'/api/card',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => json_encode($dataPost),
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
+}
+function cardvip($loaithe, $pin, $seri, $menhgia, $code){
+    global $CMSNT;
+    if($loaithe == 'VNMOBI'){
+        $loaithe = 'Vietnamobile';
+    }
+    if($loaithe == 'VIETTEL'){
+        $loaithe = 'Viettel';
+    }
+    if($loaithe == 'MOBIFONE'){
+        $loaithe = 'Mobifone';
+    }
+    if($loaithe == 'VINAPHONE'){
+        $loaithe = 'Vinaphone';
+    }
+    if($loaithe == 'ZING'){
+        $loaithe = 'Zing';
+    }
+    $dataPost = array(
+        'APIKey' => $CMSNT->site('api_cardvip'),
+        'NetworkCode' => $loaithe,
+        'PricesExchange' => $menhgia,
+        'NumberCard' => $pin,
+        'SeriCard' => $seri,
+        'IsFast' => 'true',
+        'RequestId' => $code,
+        'UrlCallback' => BASE_URL('callback.php')
+    );
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://partner.cardvip.vn/api/createExchange',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => json_encode($dataPost),
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
+}
+function trumthe($loaithe, $pin, $seri, $menhgia, $code){
+    global $CMSNT;
+    $url = 'https://trumthe.vn/chargingws/v2?sign='.md5($CMSNT->site('partner_key').$pin.$seri).'&telco='.$loaithe.'&code='.$pin.'&serial='.$seri.'&amount='.$menhgia.'&request_id='.$code.'&partner_id='.$CMSNT->site('partner_id').'&command=charging';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -723,7 +1130,7 @@ function myip()
     {  
         $ip_address = $_SERVER['REMOTE_ADDR'];  
     }
-    return $ip_address;
+    return check_string($ip_address);
 }
 function timeAgo($time_ago)
 {

@@ -2,7 +2,7 @@
 /* ĐƠN VỊ THIẾT KẾ WEB WWW.CMSNT.CO | ZALO 0947838128 | FB.COM/NTGTANETWORK */
 session_start();
 date_default_timezone_set('Asia/Ho_Chi_Minh'); // Timezone VIET NAM <3
-$base_url = 'https://shopclone.top/'; // Thay url web bạn
+$base_url = 'http://localhost/CMSNT.CO/TRUMTHE/'; // Thay url web bạn
 
 //error_reporting(0);
 class CMSNT
@@ -12,7 +12,7 @@ class CMSNT
     {
         if (!$this->ketnoi)
         {
-            $this->ketnoi = mysqli_connect('localhost', 'cardvn1_1', 'hunghoang123', 'cardvn1_1') or die ('Vui lòng kết nối đến DATABASE');
+            $this->ketnoi = mysqli_connect('localhost', 'yhostdic_test', 'yhostdic_test', 'yhostdic_test') or die ('Vui lòng kết nối đến DATABASE');
             mysqli_query($this->ketnoi, "set names 'utf8'");
         }
     }

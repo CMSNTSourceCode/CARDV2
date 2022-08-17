@@ -3,17 +3,6 @@
 
 
 
-<script type="text/javascript">
-$.ajax({
-    url: "<?=BASE_URL('Update.php');?>",
-    type: "GET",
-    dateType: "text",
-    data: {},
-    success: function(result) {
-            
-    }
-});
-</script>
 
 <script type="text/javascript">
 function load_tinnhan()

@@ -10,6 +10,15 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="<?=BASE_URL('');?>" class="nav-link">HOME</a>
                 </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="https://www.cmsnt.co/" target="_blank" class="nav-link">LIÊN HỆ</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="https://zalo.me/g/idapcx933" target="_blank" class="nav-link">HỖ TRỢ ZALO</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="https://www.youtube.com/playlist?list=PLylqe6Lzq69-TzmQ6kLzTg8ZkrxJxxtZm" target="_blank" class="nav-link">HƯỚNG DẪN YOUTUBE</a>
+                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -17,6 +26,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="<?=BASE_URL('Admin/Home');?>" class="brand-link">
+                <center><img src="https://i.imgur.com/DdqzQYA.png" alt="CMSNT.CO" width="100%"></center>
             </a>
             <!-- Sidebar -->
             <div class="sidebar">

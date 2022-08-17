@@ -2,10 +2,10 @@
 -- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th8 03, 2022 lúc 09:51 AM
--- Phiên bản máy phục vụ: 10.3.35-MariaDB-cll-lve
--- Phiên bản PHP: 7.4.30
+-- Host: localhost:3306
+-- Generation Time: May 17, 2022 at 10:43 PM
+-- Server version: 5.7.36
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `cardvn1_1`
+-- Database: `yhostdic_test`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `bank`
+-- Table structure for table `bank`
 --
 
 CREATE TABLE `bank` (
@@ -34,12 +34,12 @@ CREATE TABLE `bank` (
   `name` text NOT NULL,
   `bank_name` text NOT NULL,
   `chi_nhanh` text NOT NULL,
-  `logo` text DEFAULT NULL,
-  `ghichu` text DEFAULT NULL
+  `logo` text,
+  `ghichu` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
--- Đang đổ dữ liệu cho bảng `bank`
+-- Dumping data for table `bank`
 --
 
 INSERT INTO `bank` (`id`, `stk`, `name`, `bank_name`, `chi_nhanh`, `logo`, `ghichu`) VALUES
@@ -50,15 +50,15 @@ INSERT INTO `bank` (`id`, `stk`, `name`, `bank_name`, `chi_nhanh`, `logo`, `ghic
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `bank_auto`
+-- Table structure for table `bank_auto`
 --
 
 CREATE TABLE `bank_auto` (
   `id` int(11) NOT NULL,
   `tid` varchar(64) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `amount` int(11) DEFAULT 0,
-  `cusum_balance` int(11) DEFAULT 0,
+  `description` text COLLATE utf8mb4_vietnamese_ci,
+  `amount` int(11) DEFAULT '0',
+  `cusum_balance` int(11) DEFAULT '0',
   `time` datetime DEFAULT NULL,
   `bank_sub_acc_id` varchar(64) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `username` varchar(64) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL
@@ -67,26 +67,26 @@ CREATE TABLE `bank_auto` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `block_callback`
+-- Table structure for table `block_callback`
 --
 
 CREATE TABLE `block_callback` (
   `id` int(11) NOT NULL,
   `url` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `createdate` datetime DEFAULT NULL,
-  `reason` text COLLATE utf8_vietnamese_ci DEFAULT NULL
+  `reason` text COLLATE utf8_vietnamese_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `blogs`
+-- Table structure for table `blogs`
 --
 
 CREATE TABLE `blogs` (
   `id` int(11) NOT NULL,
   `title` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `content` longtext COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `content` longtext COLLATE utf8_vietnamese_ci,
   `time` datetime DEFAULT NULL,
   `thoigian` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `view` int(11) DEFAULT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE `blogs` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `card_auto`
+-- Table structure for table `card_auto`
 --
 
 CREATE TABLE `card_auto` (
@@ -110,7 +110,7 @@ CREATE TABLE `card_auto` (
   `thoigian` datetime DEFAULT NULL,
   `capnhat` datetime DEFAULT NULL,
   `trangthai` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `ghichu` text COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `ghichu` text COLLATE utf8_vietnamese_ci,
   `server` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `seri` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `pin` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
@@ -119,10 +119,18 @@ CREATE TABLE `card_auto` (
   `amount` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
+--
+-- Dumping data for table `card_auto`
+--
+
+INSERT INTO `card_auto` (`id`, `code`, `username`, `loaithe`, `menhgia`, `thucnhan`, `thoigian`, `capnhat`, `trangthai`, `ghichu`, `server`, `seri`, `pin`, `callback`, `request_id`, `amount`) VALUES
+(10019, '9587163204', 'admin', 'VIETTEL', 20000, 20000, '2021-09-04 04:01:06', NULL, 'xuly', 'the ko hop le hoacsai', 'https://autocard365.com/', '10006139522454', '114142564423544', NULL, NULL, NULL),
+(10020, '3065978214', 'admin', 'VINAPHONE', 20000, 20000, '2021-09-04 04:01:45', '2021-09-04 05:04:59', 'hoantat', '', 'https://autocard365.com/', '1242421412442', '14124124124242', NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `chuyentien`
+-- Table structure for table `chuyentien`
 --
 
 CREATE TABLE `chuyentien` (
@@ -131,24 +139,24 @@ CREATE TABLE `chuyentien` (
   `nguoichuyen` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `sotien` int(11) DEFAULT NULL,
   `thoigian` datetime DEFAULT NULL,
-  `lydo` text COLLATE utf8_vietnamese_ci DEFAULT NULL
+  `lydo` text COLLATE utf8_vietnamese_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `ck_card_auto`
+-- Table structure for table `ck_card_auto`
 --
 
 CREATE TABLE `ck_card_auto` (
   `id` int(11) NOT NULL,
   `loaithe` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `menhgia` int(11) DEFAULT NULL,
-  `ck` float DEFAULT 0
+  `ck` float DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Đang đổ dữ liệu cho bảng `ck_card_auto`
+-- Dumping data for table `ck_card_auto`
 --
 
 INSERT INTO `ck_card_auto` (`id`, `loaithe`, `menhgia`, `ck`) VALUES
@@ -201,18 +209,18 @@ INSERT INTO `ck_card_auto` (`id`, `loaithe`, `menhgia`, `ck`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `ck_card_auto_diamond`
+-- Table structure for table `ck_card_auto_diamond`
 --
 
 CREATE TABLE `ck_card_auto_diamond` (
   `id` int(11) NOT NULL,
   `loaithe` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `menhgia` int(11) NOT NULL DEFAULT 0,
-  `ck` float NOT NULL DEFAULT 0
+  `menhgia` int(11) NOT NULL DEFAULT '0',
+  `ck` float NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `ck_card_auto_diamond`
+-- Dumping data for table `ck_card_auto_diamond`
 --
 
 INSERT INTO `ck_card_auto_diamond` (`id`, `loaithe`, `menhgia`, `ck`) VALUES
@@ -265,18 +273,18 @@ INSERT INTO `ck_card_auto_diamond` (`id`, `loaithe`, `menhgia`, `ck`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `ck_card_auto_platinum`
+-- Table structure for table `ck_card_auto_platinum`
 --
 
 CREATE TABLE `ck_card_auto_platinum` (
   `id` int(11) NOT NULL,
   `loaithe` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
-  `menhgia` int(11) NOT NULL DEFAULT 0,
-  `ck` float NOT NULL DEFAULT 0
+  `menhgia` int(11) NOT NULL DEFAULT '0',
+  `ck` float NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `ck_card_auto_platinum`
+-- Dumping data for table `ck_card_auto_platinum`
 --
 
 INSERT INTO `ck_card_auto_platinum` (`id`, `loaithe`, `menhgia`, `ck`) VALUES
@@ -329,7 +337,7 @@ INSERT INTO `ck_card_auto_platinum` (`id`, `loaithe`, `menhgia`, `ck`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `dongtien`
+-- Table structure for table `dongtien`
 --
 
 CREATE TABLE `dongtien` (
@@ -338,12 +346,12 @@ CREATE TABLE `dongtien` (
   `sotienthaydoi` int(11) DEFAULT NULL,
   `sotiensau` int(11) DEFAULT NULL,
   `thoigian` datetime DEFAULT NULL,
-  `noidung` text COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `noidung` text COLLATE utf8_vietnamese_ci,
   `username` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Đang đổ dữ liệu cho bảng `dongtien`
+-- Dumping data for table `dongtien`
 --
 
 INSERT INTO `dongtien` (`id`, `sotientruoc`, `sotienthaydoi`, `sotiensau`, `thoigian`, `noidung`, `username`) VALUES
@@ -353,7 +361,7 @@ INSERT INTO `dongtien` (`id`, `sotientruoc`, `sotienthaydoi`, `sotiensau`, `thoi
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `listbank`
+-- Table structure for table `listbank`
 --
 
 CREATE TABLE `listbank` (
@@ -368,7 +376,7 @@ CREATE TABLE `listbank` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `loaithe`
+-- Table structure for table `loaithe`
 --
 
 CREATE TABLE `loaithe` (
@@ -379,7 +387,7 @@ CREATE TABLE `loaithe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Đang đổ dữ liệu cho bảng `loaithe`
+-- Dumping data for table `loaithe`
 --
 
 INSERT INTO `loaithe` (`id`, `type`, `ck`, `status`) VALUES
@@ -393,17 +401,17 @@ INSERT INTO `loaithe` (`id`, `type`, `ck`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `momo`
+-- Table structure for table `momo`
 --
 
 CREATE TABLE `momo` (
   `id` int(11) NOT NULL,
   `request_id` varchar(64) CHARACTER SET utf32 COLLATE utf32_vietnamese_ci DEFAULT NULL,
-  `tranId` text CHARACTER SET utf32 COLLATE utf32_vietnamese_ci DEFAULT NULL,
-  `partnerId` text CHARACTER SET utf32 COLLATE utf32_vietnamese_ci DEFAULT NULL,
-  `partnerName` text CHARACTER SET utf16 COLLATE utf16_vietnamese_ci DEFAULT NULL,
-  `amount` text CHARACTER SET utf32 COLLATE utf32_vietnamese_ci DEFAULT NULL,
-  `comment` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tranId` text CHARACTER SET utf32 COLLATE utf32_vietnamese_ci,
+  `partnerId` text CHARACTER SET utf32 COLLATE utf32_vietnamese_ci,
+  `partnerName` text CHARACTER SET utf16 COLLATE utf16_vietnamese_ci,
+  `amount` text CHARACTER SET utf32 COLLATE utf32_vietnamese_ci,
+  `comment` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci,
   `time` datetime DEFAULT NULL,
   `username` varchar(32) CHARACTER SET utf32 COLLATE utf32_vietnamese_ci DEFAULT NULL,
   `status` varchar(32) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci DEFAULT 'xuly'
@@ -412,7 +420,7 @@ CREATE TABLE `momo` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `muathe`
+-- Table structure for table `muathe`
 --
 
 CREATE TABLE `muathe` (
@@ -430,17 +438,17 @@ CREATE TABLE `muathe` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `options`
+-- Table structure for table `options`
 --
 
 CREATE TABLE `options` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `value` longtext COLLATE utf8_vietnamese_ci DEFAULT NULL
+  `value` longtext COLLATE utf8_vietnamese_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Đang đổ dữ liệu cho bảng `options`
+-- Dumping data for table `options`
 --
 
 INSERT INTO `options` (`id`, `name`, `value`) VALUES
@@ -472,7 +480,7 @@ INSERT INTO `options` (`id`, `name`, `value`) VALUES
 (40, 'partner_id', ''),
 (41, 'partner_key', ''),
 (42, 'api_bank', 'vuilongthayapi'),
-(43, 'status_napbank', 'OFF'),
+(43, 'status_napbank', 'ON'),
 (44, 'status_demo', 'OFF'),
 (45, 'api_momo', 'vuilongthayapi'),
 (46, 'email_admin', ''),
@@ -486,25 +494,54 @@ INSERT INTO `options` (`id`, `name`, `value`) VALUES
 (54, 'security_banthe247', ''),
 (55, 'dieu_khoan', ''),
 (56, 'status_blog', 'OFF'),
-(57, 'status_ref', 'ON'),
+(57, 'status_ref', 'OFF'),
 (58, 'ck_ref', '1'),
 (60, 'luuy_ref', '<ul>\r\n    <li>Những tài khoản được hệ thống xác định là tài khoản sao chép của các tài\r\n        khoản khác sẽ không được dùng để tính hoa hồng.</li>\r\n    <li>Hoa hồng chỉ được tính khi bạn bè của bạn thực hiện đổi thẻ thành công.</li>\r\n    <li>Việc xác định xem ai là người giới thiệu của một người dùng phụ thuộc hoàn\r\n        toàn vào link giới thiệu. Nếu một người dùng nhấp vào nhiều link ref khác\r\n        nhau thì chỉ có link ref cuối cùng họ nhấp vào trước khi tạo tài khoản là có\r\n        hiệu lực.</li>\r\n    <li>Chúng tôi sẽ từ chối trả hoa hồng khi phát hiện bạn cố tình sao chép tài\r\n        khoản để giảm chiết khấu thẻ.</li>\r\n</ul>'),
+(61, 'status_trumthe', 'ON'),
+(62, 'status_cardvip', 'OFF'),
+(63, 'api_cardvip', ''),
+(64, 'status_cardv2', 'OFF'),
+(65, 'api_cardv2', ''),
 (66, 'domain_cardv2', 'https://autocard365.com/'),
 (67, 'status_autocard365', 'OFF'),
 (68, 'api_autocard365', ''),
 (69, 'license_key', 'd98f95640687d09ef7f7a68836dc582d'),
 (70, 'btnSaveLicense', ''),
-(71, 'status_cardv3', 'ON'),
-(72, 'partner_id_cardv3', '90903858658'),
-(73, 'partner_key_cardv3', 'c749e0c4fb33376d619f0a8660b9655b'),
+(71, 'status_cardv3', 'OFF'),
+(72, 'partner_id_cardv3', ''),
+(73, 'partner_key_cardv3', ''),
+(74, 'domain_cardv3', ''),
+(75, 'status_dtsr11', 'OFF'),
+(76, 'api_dtsr11', ''),
 (77, 'withdrawal_fee', '0'),
 (78, 'border_radius', '6'),
-(79, 'phi_rut_tien_ck', '0');
+(79, 'phi_rut_tien_ck', '0'),
+(80, 'api_card48', ''),
+(81, 'status_card48', 'OFF'),
+(82, 'api_thecao72', ''),
+(83, 'status_thecao72', 'OFF'),
+(84, 'api_thecaommo', ''),
+(85, 'status_thecaommo', 'OFF'),
+(86, 'api_doithe1s', ''),
+(87, 'status_doithe1s', 'OFF'),
+(88, 'api_payas', ''),
+(89, 'status_payas', 'OFF'),
+(90, 'server_buycard', '0'),
+(91, 'notice_buycard', 'ahaha'),
+(92, 'status_cardv4', 'OFF'),
+(93, 'api_cardv4', ''),
+(94, 'domain_cardv4', ''),
+(95, 'status_cardv5', 'OFF'),
+(96, 'usercode_cardv5', ''),
+(97, 'userpass_cardv5', ''),
+(98, 'domain_cardv5', ''),
+(99, 'status_doithe365', 'OFF'),
+(100, 'api_doithe365', '');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `ruttien`
+-- Table structure for table `ruttien`
 --
 
 CREATE TABLE `ruttien` (
@@ -512,6 +549,7 @@ CREATE TABLE `ruttien` (
   `magd` varchar(255) COLLATE utf8_vietnamese_ci NOT NULL,
   `username` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `sotien` int(11) DEFAULT NULL,
+  `thanhtoan` int(11) NOT NULL DEFAULT '0',
   `nganhang` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `sotaikhoan` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `chutaikhoan` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
@@ -519,13 +557,43 @@ CREATE TABLE `ruttien` (
   `thoigian` datetime DEFAULT NULL,
   `trangthai` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `capnhat` datetime DEFAULT NULL,
-  `ghichu` text COLLATE utf8_vietnamese_ci DEFAULT NULL
+  `ghichu` text COLLATE utf8_vietnamese_ci,
+  `response` text COLLATE utf8_vietnamese_ci,
+  `noidung` text COLLATE utf8_vietnamese_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `topup`
+-- Table structure for table `sellcards`
+--
+
+CREATE TABLE `sellcards` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `sellcard_id` int(11) NOT NULL DEFAULT '0',
+  `ck` float NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `storecards`
+--
+
+CREATE TABLE `storecards` (
+  `id` int(11) NOT NULL,
+  `sellcard_id` int(11) NOT NULL DEFAULT '0',
+  `username` varchar(255) DEFAULT NULL,
+  `card` text,
+  `createdate` datetime NOT NULL,
+  `updatedate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `topup`
 --
 
 CREATE TABLE `topup` (
@@ -542,7 +610,7 @@ CREATE TABLE `topup` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `type_muathe`
+-- Table structure for table `type_muathe`
 --
 
 CREATE TABLE `type_muathe` (
@@ -552,7 +620,7 @@ CREATE TABLE `type_muathe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Đang đổ dữ liệu cho bảng `type_muathe`
+-- Dumping data for table `type_muathe`
 --
 
 INSERT INTO `type_muathe` (`id`, `type`, `name`) VALUES
@@ -569,268 +637,299 @@ INSERT INTO `type_muathe` (`id`, `type`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `password2` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `token` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `money` int(11) NOT NULL DEFAULT 0,
+  `money` int(11) NOT NULL DEFAULT '0',
   `level` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `banned` int(11) NOT NULL DEFAULT 0,
+  `banned` int(11) NOT NULL DEFAULT '0',
   `createdate` datetime DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_vietnamese_ci NOT NULL,
   `ref` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `ref_click` int(11) DEFAULT 0,
-  `reason_banned` text COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `agency` int(11) NOT NULL DEFAULT 0,
+  `ref_click` int(11) DEFAULT '0',
+  `reason_banned` text COLLATE utf8_vietnamese_ci,
+  `agency` int(11) NOT NULL DEFAULT '0',
   `otp` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `ip` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `time` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `used_money` int(11) NOT NULL DEFAULT 0,
-  `total_money` int(11) NOT NULL DEFAULT 0,
+  `used_money` int(11) NOT NULL DEFAULT '0',
+  `total_money` int(11) NOT NULL DEFAULT '0',
   `phone` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `fullname` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `group_excard` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT 'Bronze'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `password2`, `token`, `money`, `level`, `banned`, `createdate`, `email`, `ref`, `ref_click`, `reason_banned`, `agency`, `otp`, `ip`, `time`, `used_money`, `total_money`, `phone`, `fullname`, `group_excard`) VALUES
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `bank`
+-- Indexes for table `bank`
 --
 ALTER TABLE `bank`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `bank_auto`
+-- Indexes for table `bank_auto`
 --
 ALTER TABLE `bank_auto`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `block_callback`
+-- Indexes for table `block_callback`
 --
 ALTER TABLE `block_callback`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `blogs`
+-- Indexes for table `blogs`
 --
 ALTER TABLE `blogs`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `card_auto`
+-- Indexes for table `card_auto`
 --
 ALTER TABLE `card_auto`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `chuyentien`
+-- Indexes for table `chuyentien`
 --
 ALTER TABLE `chuyentien`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `ck_card_auto`
+-- Indexes for table `ck_card_auto`
 --
 ALTER TABLE `ck_card_auto`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `ck_card_auto_diamond`
+-- Indexes for table `ck_card_auto_diamond`
 --
 ALTER TABLE `ck_card_auto_diamond`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `ck_card_auto_platinum`
+-- Indexes for table `ck_card_auto_platinum`
 --
 ALTER TABLE `ck_card_auto_platinum`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `dongtien`
+-- Indexes for table `dongtien`
 --
 ALTER TABLE `dongtien`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `listbank`
+-- Indexes for table `listbank`
 --
 ALTER TABLE `listbank`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `loaithe`
+-- Indexes for table `loaithe`
 --
 ALTER TABLE `loaithe`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `momo`
+-- Indexes for table `momo`
 --
 ALTER TABLE `momo`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `muathe`
+-- Indexes for table `muathe`
 --
 ALTER TABLE `muathe`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `options`
+-- Indexes for table `options`
 --
 ALTER TABLE `options`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `ruttien`
+-- Indexes for table `ruttien`
 --
 ALTER TABLE `ruttien`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `topup`
+-- Indexes for table `sellcards`
+--
+ALTER TABLE `sellcards`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `storecards`
+--
+ALTER TABLE `storecards`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `topup`
 --
 ALTER TABLE `topup`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `type_muathe`
+-- Indexes for table `type_muathe`
 --
 ALTER TABLE `type_muathe`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `bank`
+-- AUTO_INCREMENT for table `bank`
 --
 ALTER TABLE `bank`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT cho bảng `bank_auto`
+-- AUTO_INCREMENT for table `bank_auto`
 --
 ALTER TABLE `bank_auto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `block_callback`
+-- AUTO_INCREMENT for table `block_callback`
 --
 ALTER TABLE `block_callback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `blogs`
+-- AUTO_INCREMENT for table `blogs`
 --
 ALTER TABLE `blogs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `card_auto`
+-- AUTO_INCREMENT for table `card_auto`
 --
 ALTER TABLE `card_auto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10022;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10021;
 
 --
--- AUTO_INCREMENT cho bảng `chuyentien`
+-- AUTO_INCREMENT for table `chuyentien`
 --
 ALTER TABLE `chuyentien`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `ck_card_auto`
+-- AUTO_INCREMENT for table `ck_card_auto`
 --
 ALTER TABLE `ck_card_auto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT cho bảng `ck_card_auto_diamond`
+-- AUTO_INCREMENT for table `ck_card_auto_diamond`
 --
 ALTER TABLE `ck_card_auto_diamond`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT cho bảng `ck_card_auto_platinum`
+-- AUTO_INCREMENT for table `ck_card_auto_platinum`
 --
 ALTER TABLE `ck_card_auto_platinum`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT cho bảng `dongtien`
+-- AUTO_INCREMENT for table `dongtien`
 --
 ALTER TABLE `dongtien`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
--- AUTO_INCREMENT cho bảng `listbank`
+-- AUTO_INCREMENT for table `listbank`
 --
 ALTER TABLE `listbank`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `loaithe`
+-- AUTO_INCREMENT for table `loaithe`
 --
 ALTER TABLE `loaithe`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `momo`
+-- AUTO_INCREMENT for table `momo`
 --
 ALTER TABLE `momo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `muathe`
+-- AUTO_INCREMENT for table `muathe`
 --
 ALTER TABLE `muathe`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `options`
+-- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
--- AUTO_INCREMENT cho bảng `ruttien`
+-- AUTO_INCREMENT for table `ruttien`
 --
 ALTER TABLE `ruttien`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10001;
 
 --
--- AUTO_INCREMENT cho bảng `topup`
+-- AUTO_INCREMENT for table `sellcards`
+--
+ALTER TABLE `sellcards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `storecards`
+--
+ALTER TABLE `storecards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `topup`
 --
 ALTER TABLE `topup`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `type_muathe`
+-- AUTO_INCREMENT for table `type_muathe`
 --
 ALTER TABLE `type_muathe`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

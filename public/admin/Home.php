@@ -96,6 +96,24 @@
         </div>
     </section>
     <section class="content">
+        <div class="alert alert-dark">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <b>Phiên bản hiện tại: <b style="font-size:20px;color:yellow;"><?=$config['version'];?></b></b>
+            <ul>
+                <li>24/02/2021: Update API doithe365.com.</li>
+                <li>23/11/2021: Update API payas.net.</li>
+                <li>21/11/2021: Update API doithe1s.vn.</li>
+                <li>20/11/2021: Update API thecaommo.com.</li>
+                <li>19/11/2021: Update API thecao72.com.</li>
+                <li>16/11/2021: Update API card48.net.</li>
+                <li>13/11/2021: Fix API autocard365.com.</li>
+                <li>20/10/2021: Thêm nội dung rút tiền.</li>
+                <li>15/10/2021: Thêm chức năng bán thẻ bảo lưu từ trong kho.</li>
+            </ul>
+            <p>Mua code ủng hộ tác giả tại đây: <a target="_blank"
+                    href="https://www.cmsnt.co/2021/03/source-code-doi-the-cao-tu-dong.html">https://www.cmsnt.co/2021/03/source-code-doi-the-cao-tu-dong.html</a>
+            </p>
+        </div>
         <div id="thongbao"></div>
         <div class="row">
             <div class="col-lg-3 col-12">
@@ -181,14 +199,46 @@
                     </div>
                 </div>
             </div>
-           <div class="col-lg-3 col-12">
+            <div class="col-lg-3 col-12">
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
                         <h3 id="loi_nhuan_today">
-                            <?=format_cash($CMSNT->get_row("SELECT SUM(`amount`) FROM `card_auto` WHERE `trangthai` = 'hoantat' AND `thoigian` >= DATE(NOW()) AND `thoigian` < DATE(NOW()) + INTERVAL 1 DAY ")['SUM(`amount`)'] - $CMSNT->get_row("SELECT SUM(`thucnhan`) FROM `card_auto` WHERE `trangthai` = 'hoantat' AND `thoigian` >= DATE(NOW()) AND `thoigian` < DATE(NOW()) + INTERVAL 1 DAY ")['SUM(`thucnhan`)']);?>đ
+                            <?=format_cash($CMSNT->get_row("SELECT SUM(`amount`) FROM `card_auto` WHERE `trangthai` = 'hoantat' AND `thoigian` >= DATE(NOW()) AND `thoigian` < DATE(NOW()) + INTERVAL 1 DAY ")['SUM(`amount`)'] - 
+                            $CMSNT->get_row("SELECT SUM(`thucnhan`) FROM `card_auto` WHERE `trangthai` = 'hoantat' AND `thoigian` >= DATE(NOW()) AND `thoigian` < DATE(NOW()) + INTERVAL 1 DAY ")['SUM(`thucnhan`)'] +
+                            $CMSNT->get_row("SELECT SUM(`thanhtoan`) FROM `ruttien` WHERE `trangthai` = 'hoantat' AND `thoigian` >= DATE(NOW()) AND `thoigian` < DATE(NOW()) + INTERVAL 1 DAY ")['SUM(`thanhtoan`)'] - 
+                            $CMSNT->get_row("SELECT SUM(`sotien`) FROM `ruttien` WHERE `trangthai` = 'hoantat' AND `thoigian` >= DATE(NOW()) AND `thoigian` < DATE(NOW()) + INTERVAL 1 DAY ")['SUM(`sotien`)']
+                            
+                            );?>đ
                         </h3>
-                        <p>LỢI NHUẬN HÔM NAY</p>
+                        <p>LỢI NHUẬN HÔM NAY <i class="fa fa-spinner fa-spin"></i></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix hidden-md-up"></div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Lợi nhuận tháng này</span>
+                        <span class="info-box-number"><?=format_cash($CMSNT->get_row("SELECT SUM(`amount`) FROM `card_auto` WHERE `trangthai` = 'hoantat' AND YEAR(thoigian) = ".date('Y')." AND MONTH(thoigian) = ".date('m')." ")['SUM(`amount`)'] - 
+                        $CMSNT->get_row("SELECT SUM(`thucnhan`) FROM `card_auto` WHERE `trangthai` = 'hoantat' AND YEAR(thoigian) = ".date('Y')." AND MONTH(thoigian) = ".date('m')." ")['SUM(`thucnhan`)'] + 
+                        $CMSNT->get_row("SELECT SUM(`thanhtoan`) FROM `ruttien` WHERE `trangthai` = 'hoantat' AND YEAR(thoigian) = ".date('Y')." AND MONTH(thoigian) = ".date('m')." ")['SUM(`thanhtoan`)'] - 
+                        $CMSNT->get_row("SELECT SUM(`sotien`) FROM `ruttien` WHERE `trangthai` = 'hoantat' AND YEAR(thoigian) = ".date('Y')." AND MONTH(thoigian) = ".date('m')." ")['SUM(`sotien`)']
+                        );?>đ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Lợi nhuận tuần này</span>
+                        <span class="info-box-number"><?=format_cash(
+                            $CMSNT->get_row("SELECT SUM(`amount`) FROM `card_auto` WHERE `trangthai` = 'hoantat' AND WEEK(thoigian, 1) = WEEK(CURDATE(), 1) ")['SUM(`amount`)'] - 
+                            $CMSNT->get_row("SELECT SUM(`thucnhan`) FROM `card_auto` WHERE `trangthai` = 'hoantat' AND WEEK(thoigian, 1) = WEEK(CURDATE(), 1) ")['SUM(`thucnhan`)'] + 
+                            $CMSNT->get_row("SELECT SUM(`thanhtoan`) FROM `ruttien` WHERE `trangthai` = 'hoantat' AND WEEK(thoigian, 1) = WEEK(CURDATE(), 1) ")['SUM(`thanhtoan`)'] - 
+                            $CMSNT->get_row("SELECT SUM(`sotien`) FROM `ruttien` WHERE `trangthai` = 'hoantat' AND WEEK(thoigian, 1) = WEEK(CURDATE(), 1) ")['SUM(`sotien`)']  );?>đ</span>
                     </div>
                 </div>
             </div>
@@ -389,7 +439,17 @@
 </div>
 
 
-
+<script type="text/javascript">
+$.ajax({
+    url: "<?=BASE_URL('Update.php');?>",
+    type: "GET",
+    dateType: "text",
+    data: {},
+    success: function(result) {
+            
+    }
+});
+</script>
 <script>
 $(function() {
     $("#datatable").DataTable({

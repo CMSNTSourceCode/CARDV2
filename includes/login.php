@@ -1,9 +1,4 @@
 <?php
-/**
- * CMSNT.CO - TỐI ƯU HÓA QUY TRÌNH KIẾM TIỀN ONLINE CỦA BẠN
- * WEBSITE: https://www.cmsnt.co/
- * PATH: includes\login.php
- */
 
 
 if(isset($_SESSION['username']))

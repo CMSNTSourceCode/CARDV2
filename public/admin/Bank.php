@@ -121,7 +121,7 @@ if(isset($_POST['btnSaveOption']) && $getUser['level'] == 'admin')
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">API Momo Auto</label>
+                                <label class="col-sm-3 col-form-label">API Momo Auto(api.dichvudark.com)</label>
                                 <div class="col-sm-9">
                                     <div class="form-line">
                                         <input type="text" name="api_momo" value="<?=$CMSNT->site('api_momo');?>"

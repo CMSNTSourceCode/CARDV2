@@ -102,7 +102,7 @@
             'used_money'    => 0,
             'total_money'   => 0,
             'banned'        => 0,
-            'ref'           => $_SESSION['ref'],
+            'ref'           => check_string($_SESSION['ref']),
             'ip'            => myip(),
             'time'          => time(),
             'createdate'    => gettime()
@@ -176,6 +176,9 @@
         $row = $CMSNT->get_row(" SELECT * FROM `users` WHERE `otp` = '$otp' ");
         if(!$row)
         {
+            msg_error2("OTP không tồn tại trong hệ thống");
+        }
+        if($row['otp'] == NULL){
             msg_error2("OTP không tồn tại trong hệ thống");
         }
         if($password != $repassword)

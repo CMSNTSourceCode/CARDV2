@@ -21,8 +21,48 @@
 
     function payment_momo($token, $sdtnguoinhan, $password, $money, $noidung)
     {
-        $result = curl_get("https://api.web2m.com/TRANSFERAPIMOMO/".$token."/".$sdtnguoinhan."/".$password."/".$money."/".$noidung);
-        $result = json_decode($result, true);
+    //chuyển tiền
+
+$curl = curl_init();
+
+$dataPost = array(
+
+    "type" => "transfer",
+    "token" => $token,
+    "phone"  => $sdtnguoinhan,
+    "amount" => $money,
+    "comment" => $noidung,
+    "password" => $password,
+
+);
+
+curl_setopt_array($curl, array(
+
+  CURLOPT_URL => 'https://api.nammood.fun/api/MoMo/tranfer',
+
+  CURLOPT_RETURNTRANSFER => true,
+
+  CURLOPT_ENCODING => '',
+
+  CURLOPT_MAXREDIRS => 10,
+
+  CURLOPT_TIMEOUT => 0,
+
+  CURLOPT_FOLLOWLOCATION => true,
+
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+
+  CURLOPT_CUSTOMREQUEST => 'POST',
+
+  CURLOPT_POSTFIELDS =>  $dataPost,
+
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+
+        $result = json_decode($response, true);
         return $result;
     }
 
